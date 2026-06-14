@@ -6,6 +6,6 @@ step 2: uv add requests minsearch openai jupyter python-dotenv
 
 step 3: notebook.ipynb select environment
 
-step 4: 
+step 4: esszt
 
 
