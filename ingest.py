@@ -1,29 +1,42 @@
 # loading data and building the search index
-
-
 import requests
-from minsearch import index
+from minsearch import Index
+from gitsource import GithubRepositoryDataReader
 
 
-def laod_faq_data():
-    docs_url = "https://datatalks.club/faq/json/courses.json"
-    response = requests.get(docs_url)
-    courses_raw = response.json()
-    
-    
-    documents - []
-    url_prefix = ""
-    
-    for course in courses_raw:
-        cours_ulr
-    
-    
-    
+
+def load_documents():
+    reader = GithubRepositoryDataReader(
+        repo_owner="DataTalksClub",
+        repo_name="llm-zoomcamp",
+        commit_id="8c1834d",
+        allowed_extensions={"md"},
+        filename_filter=lambda path: "/lessons/" in path,
+    )
+    files = reader.read()
+
+    documents = []
+
+    for file in files:
+        doc = file.parse()
+        documents.append(doc)
+        
+    return documents
 def build_index(documents):
     index = Index(
-        text_fields = ["question","sections", "answer"],
-        keywords_fields = ["course"]
+        text_fields=["content"],
+        keyword_fields=["filename"]
+    )
+    index.fit(documents)
+    result = index.search(
+        "How does the agentic loop keep calling the model until it stops?",
+        num_results=5,
+        boost_dict={"contest":2}
+        
     )
     
-    index.fit(documents)
     return index
+
+
+doc = load_documents()
+index = build_index(doc)
