@@ -1,7 +1,7 @@
 # loading data and building the search index
 import requests
 from minsearch import Index
-from gitsource import GithubRepositoryDataReader
+from gitsource import GithubRepositoryDataReader, chunk_documents
 
 
 
@@ -23,11 +23,19 @@ def load_documents():
         
     return documents
 def build_index(documents):
+    
+    chunk = chunk_documents(
+        documents, 
+        size=2000,
+        step=1000
+    )
+    print(len(documents))
+    print(len(chunk))    
     index = Index(
         text_fields=["content"],
         keyword_fields=["filename"]
     )
-    index.fit(documents)
+    index.fit(chunk)
     # result = index.search(
     #     "How does the agentic loop keep calling the model until it stops?",
     #     num_results=5,
@@ -36,3 +44,5 @@ def build_index(documents):
     # )
     return index
 
+
+build_index(load_documents())

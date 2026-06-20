@@ -83,9 +83,9 @@ class RAGHelper:
         
         result = self.llm(prompt)
         answer = result.output_text
-        usage = result.usage.input_tokens
+        input_tokens = result.usage.input_tokens
         
-        return answer, usage
+        return answer, input_tokens
         
         
         
