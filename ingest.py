@@ -28,15 +28,11 @@ def build_index(documents):
         keyword_fields=["filename"]
     )
     index.fit(documents)
-    result = index.search(
-        "How does the agentic loop keep calling the model until it stops?",
-        num_results=5,
-        boost_dict={"contest":2}
+    # result = index.search(
+    #     "How does the agentic loop keep calling the model until it stops?",
+    #     num_results=5,
+    #     boost_dict={"contest":2}
         
-    )
-    
+    # )
     return index
 
-
-doc = load_documents()
-index = build_index(doc)
