@@ -51,8 +51,6 @@ class RAGHelper:
         """ 
         return context
             
-            
-            
     def build_prompt(self,query, search_result):
         context = self.build_context(search_result)
         return self.prompt_template.format(

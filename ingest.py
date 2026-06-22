@@ -29,8 +29,9 @@ def build_index(documents):
         size=2000,
         step=1000
     )
-    print(len(documents))
-    print(len(chunk))    
+    index = chunk
+    search_count = 0
+    
     index = Index(
         text_fields=["content"],
         keyword_fields=["filename"]
