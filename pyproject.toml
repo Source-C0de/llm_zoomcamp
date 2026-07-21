@@ -18,4 +18,5 @@ dependencies = [
 members = [
     "module_4",
     "module_5",
+    "module_6",
 ]
